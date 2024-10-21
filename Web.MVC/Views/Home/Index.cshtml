@@ -1,0 +1,129 @@
+﻿@model PageModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container custom-container">
+    <div class="form-container">
+        <form method="POST" action="/home/index">
+            <h4>Calculate Equity</h4>
+            <div class="input-container">
+                <input class="input" name="sellingprice" placeholder=""/>
+                <label class="label" >Selling Price</label>
+            </div>
+
+            <div class="input-container">
+                <input class="input" name="reservationdate" type="date" />
+                <label class="label">Reservation Date</label>
+            </div>
+
+            <div class="input-container">
+                <input class="input" name="noofterm" placeholder=""/>
+                <label class="label" >No. of Term</label>
+            </div>
+
+            <input class="btn-submit" type="submit" />
+        </form>
+    </div>
+
+    <div class="result-container">
+        <h4>Result</h4>
+        @if(Model.Results.Count() > 0)
+        {
+            <div class="container">
+                <table class="table">
+                    <thead class="thead">
+                        <tr>
+                            <th scope="col">Term</th>
+                            <th scope="col">Balance</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Payment Information</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach(var r in Model.Results)
+                        {
+                            <tr>
+                                <th scope="row">@r.TermNo</th>
+                                <td>@r.Balance.ToString("$0.00")</td>
+                                <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
+                                        <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
+                                        <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
+                                        <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Selling Price</th>
+                <th>Reservation Date</th>
+                <th>No of Term</th>
+                <th>Schedules</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(var item in Model.Equities)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.SellingPrice.ToString("$0.00")</td>
+                    <td>@item.ReservationDate.ToString("MM/dd/yyyy")</td>
+                    <td>@item.Term</td>
+                    <td class="table-cell">
+                        <table class="table">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col">Term</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Payment Information</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach(var r in item.Schedules)
+                                {
+                                    <tr>
+                                        <th scope="row">@r.TermNo</th>
+                                        <td>@r.Balance.ToString("$0.00")</td>
+                                        <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
+                                        <td>
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
+                                                <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
+                                                <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
+                                                <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+
+                    <td>
+                        <input type="button" value="Delete" onclick="location.href='@Url.Action("DeleteEquity", "Home", new { id = item.Id })'" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
