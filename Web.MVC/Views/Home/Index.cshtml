@@ -80,7 +80,7 @@
         </thead>
 
         <tbody>
-            @foreach(var item in Model.Equities)
+            @foreach(var item in Model.Equities.Reverse())
             {
                 <tr>
                     <th scope="row">@item.Id</th>
@@ -120,7 +120,7 @@
                     </td>
 
                     <td>
-                        <input type="button" value="Delete" onclick="location.href='@Url.Action("DeleteEquity", "Home", new { id = item.Id })'" />
+                        <input class="btn-danger" type="button" value="Delete" onclick="location.href='@Url.Action("DeleteEquity", "Home", new { id = item.Id })'" />
                     </td>
                 </tr>
             }
