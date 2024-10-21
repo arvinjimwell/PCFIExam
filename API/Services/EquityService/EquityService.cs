@@ -12,14 +12,12 @@ public class EquityService(EquityDbContext db) : IEquityService
     {
         return _db.Equities.AsNoTracking()
             .Include(m => m.Schedules)
-            .ThenInclude(s => s.PaymentInfo)
             .AsNoTracking();
     }
 
     public Equity? GetEquity(int id)
     {
         return _db.Equities.Include(m => m.Schedules)
-            .ThenInclude(s => s.PaymentInfo)
             .FirstOrDefault(m => m.Id == id);
     }
 

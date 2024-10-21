@@ -13,9 +13,6 @@ public class EquitySchedule
 
     public int EquityId { get; set; }
     public virtual Equity Equity { get; set; } = null!;
-    
-    public int PaymentInfoId { get; set; }
-    public virtual PaymentInfo PaymentInfo { get; init; } = null!;
 
     public EquitySchedule() { }
     public EquitySchedule(decimal balance, int termNo, Equity equity)
@@ -24,19 +21,25 @@ public class EquitySchedule
         TermNo = termNo;
         EquityId = equity.Id;
         Equity = equity;
-        PaymentInfo = new(this);
         SetDueDate();
     }
     
-    public void SetDueDate()
-    {
+    public void SetDueDate() =>
         DueDate = Equity.ReservationDate.AddMonths(TermNo);
-    }
 
-    public void UpdateBalance()
-    {
+    public void UpdateBalance() =>
         Balance = Equity.SellingPrice - (Equity.MonthlyAmount * TermNo);
-    }
 
-    
+    public decimal GetTotal() =>
+        GetAmount() + GetInterest() + GetInsurance();
+
+    public decimal GetAmount() =>
+        Equity.MonthlyAmount;
+
+    public decimal GetInterest() =>
+        Balance * 0.05M;
+
+    public decimal GetInsurance() =>
+        GetAmount() * 0.01M;
+
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCFI;
 
@@ -11,9 +12,11 @@ using PCFI;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(EquityDbContext))]
-    partial class EquityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241021175842_RemovePaymentInformation")]
+    partial class RemovePaymentInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

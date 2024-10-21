@@ -28,10 +28,10 @@ public static class DtoMapper
             TermNo = s.TermNo,
             PaymentInfo = new()
             {
-                Amount = s.PaymentInfo.Amount,
-                Insurance = s.PaymentInfo.Insurance,
-                Interest = s.PaymentInfo.Interest,
-                Total = s.PaymentInfo.Total
+                Amount = s.GetAmount(),
+                Insurance = s.GetInsurance(),
+                Interest = s.GetInterest(),
+                Total = s.GetTotal()
             }
         });
     }

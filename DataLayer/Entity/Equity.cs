@@ -21,15 +21,12 @@ public partial class Equity
         SetStartDate();
         SetSchedules();
     }
-    private void SetMonthAmount()
-    {
-        MonthlyAmount = SellingPrice / Term;
-    }
 
-    private void SetStartDate()
-    {
+    private void SetMonthAmount() =>
+        MonthlyAmount = SellingPrice / Term;
+
+    private void SetStartDate() =>
         StartDate = ReservationDate.AddMonths(1);
-    }
 
 
     private void SetSchedules()
@@ -40,9 +37,6 @@ public partial class Equity
         }
     }
 
-    private decimal GetTermBalance(int termNo)
-    {
-        return SellingPrice - ( MonthlyAmount * termNo );
-    }
-    
+    private decimal GetTermBalance(int termNo) =>
+        SellingPrice - ( MonthlyAmount * termNo );
 }

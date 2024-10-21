@@ -52,29 +52,7 @@ public class EquityDbContext : DbContext
         {
             model.HasKey(m => m.Id);
 
-            model.HasOne(m => m.PaymentInfo)
-                .WithOne(pi => pi.Schedule)
-                .HasForeignKey<PaymentInfo>(pi => pi.ScheduleId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             model.Property(m => m.Balance)
-                .HasPrecision(18, 2);
-        });
-
-        modelBuilder.Entity<PaymentInfo>(model =>
-        {
-            model.HasKey(m => m.Id);
-
-            model.Property(m => m.Amount)
-                .HasPrecision(18, 2);
-
-            model.Property(m => m.Insurance)
-                .HasPrecision(18, 2);
-
-            model.Property(m => m.Interest)
-                .HasPrecision(18, 2);
-
-            model.Property(m => m.Total)
                 .HasPrecision(18, 2);
         });
 
