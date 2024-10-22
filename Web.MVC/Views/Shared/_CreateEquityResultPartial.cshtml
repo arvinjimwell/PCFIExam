@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DtoModels.EquityScheduleDto>
+
+<div class="container">
+    <table class="table">
+        <thead class="thead">
+            <tr>
+                <th scope="col">Term</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Payment Information</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(var r in Model)
+            {
+                <tr>
+                    <th scope="row">@r.TermNo</th>
+                    <td>@r.Balance.ToString("$0.00")</td>
+                    <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
+                    <td>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
+                            <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
+                            <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
+                            <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

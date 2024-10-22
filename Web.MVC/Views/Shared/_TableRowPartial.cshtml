@@ -1,0 +1,43 @@
+﻿@model DtoModels.EquityDto
+
+<tr>
+    <th scope="row">@Model.Id</th>
+    <td>@Model.SellingPrice.ToString("$0.00")</td>
+    <td>@Model.ReservationDate.ToString("MM/dd/yyyy")</td>
+    <td>@Model.Term</td>
+    <td class="table-cell">
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">Term</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Payment Information</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach(var r in Model.Schedules)
+                {
+                    <tr>
+                        <th scope="row">@r.TermNo</th>
+                        <td>@r.Balance.ToString("$0.00")</td>
+                        <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
+                        <td>
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
+                                <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
+                                <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
+                                <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </td>
+
+    <td>
+        <input class="btn-danger" type="button" value="Delete" onclick="location.href='@Url.Action("DeleteEquity", "Home", new { id = Model.Id })'" />
+    </td>
+</tr>

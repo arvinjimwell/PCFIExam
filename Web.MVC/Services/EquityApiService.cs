@@ -42,6 +42,22 @@ public class EquityApiService(IHttpClientFactory httpCF)
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<EquityDto?> UpdateSellingPrice(UpdateSellingPriceDto input)
+    {
+        var content = JsonContent.Create(new
+        {
+            id = input.Id,
+            sellingPrice = input.SellingPrice
+        });
+
+        var response = await CallToApi(HttpMethod.Put, "api/Equity/update/selling-price", content);
+        if(!response.IsSuccessStatusCode)
+            return null;
+
+        var model = await response.Content.ReadFromJsonAsync<EquityDto>();
+        return model;
+    }
+
     private async Task<HttpResponseMessage> CallToApi(HttpMethod requestMethod, string requestUri, JsonContent? content = null)
     {
         HttpClient client = _httpCF.CreateClient(name: "PCFI.Api.Service");

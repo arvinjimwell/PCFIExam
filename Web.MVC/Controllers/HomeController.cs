@@ -30,7 +30,7 @@ namespace Web.MVC.Controllers
             PageModel model = new();
             var result = await _apiService.CreateEquity(input);
             var equities = await _apiService.GetEquities();
-            model.Results = result;
+            model.CreateResults = result;
             model.Equities = equities;
             return View(model);
         }
@@ -40,6 +40,16 @@ namespace Web.MVC.Controllers
             PageModel model = new();
             _ = await _apiService.DeleteEquity(id);
             model.Equities = await _apiService.GetEquities();
+            return View("Index", model);
+        }
+
+        public async Task<IActionResult> UpdateSellingPrice(UpdateSellingPriceDto input)
+        {
+            PageModel model = new();
+            var result = await _apiService.UpdateSellingPrice(input);
+            var equities = await _apiService.GetEquities();
+            model.SPUpdateResult = result;
+            model.Equities = equities;
             return View("Index", model);
         }
 

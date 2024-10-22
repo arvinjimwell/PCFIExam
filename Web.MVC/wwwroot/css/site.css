@@ -24,7 +24,12 @@ body {
 .custom-container {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 80px);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px;
+    gap: 10px;
 }
 
 .form-container {
@@ -113,6 +118,7 @@ body {
     width: 60%;
     overflow: hidden;
     overflow-y: auto;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .result-container h4 {
@@ -123,7 +129,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 999;
-
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .result-container > table {

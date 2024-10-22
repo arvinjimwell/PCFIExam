@@ -29,39 +29,36 @@
 
     <div class="result-container">
         <h4>Result</h4>
-        @if(Model.Results.Count() > 0)
+        @if(Model.CreateResults.Count() > 0)
         {
-            <div class="container">
-                <table class="table">
-                    <thead class="thead">
-                        <tr>
-                            <th scope="col">Term</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Due Date</th>
-                            <th scope="col">Payment Information</th>
-                        </tr>
-                    </thead>
+            <partial name="_CreateEquityResultPartial" model="@Model.CreateResults" />
+        }
+    </div>
+</div>
 
-                    <tbody>
-                        @foreach(var r in Model.Results)
-                        {
-                            <tr>
-                                <th scope="row">@r.TermNo</th>
-                                <td>@r.Balance.ToString("$0.00")</td>
-                                <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
-                                <td>
-                                    <ul class="list-group">
-                                        <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
-                                        <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
-                                        <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
-                                        <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container custom-container">
+    <div class="form-container">
+        <form method="PUT" action="/home/updateSellingPrice">
+            <h4>Update Selling Price</h4>
+            <div class="input-container">
+                <input class="input" name="id" placeholder="" />
+                <label class="label">Id</label>
             </div>
+
+            <div class="input-container">
+                <input class="input" name="sellingprice" placeholder="" />
+                <label class="label">Selling Price</label>
+            </div>
+
+            <input class="btn-submit" type="submit" />
+        </form>
+    </div>
+
+    <div class="result-container">
+        <h4>Result</h4>
+        @if(Model.SPUpdateResult is not null)
+        {
+            <partial name="_UpdateResultPartial" model="@Model.SPUpdateResult" />
         }
     </div>
 </div>
@@ -82,47 +79,7 @@
         <tbody>
             @foreach(var item in Model.Equities.Reverse())
             {
-                <tr>
-                    <th scope="row">@item.Id</th>
-                    <td>@item.SellingPrice.ToString("$0.00")</td>
-                    <td>@item.ReservationDate.ToString("MM/dd/yyyy")</td>
-                    <td>@item.Term</td>
-                    <td class="table-cell">
-                        <table class="table">
-                            <thead class="thead">
-                                <tr>
-                                    <th scope="col">Term</th>
-                                    <th scope="col">Balance</th>
-                                    <th scope="col">Due Date</th>
-                                    <th scope="col">Payment Information</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach(var r in item.Schedules)
-                                {
-                                    <tr>
-                                        <th scope="row">@r.TermNo</th>
-                                        <td>@r.Balance.ToString("$0.00")</td>
-                                        <td>@r.DueDate.ToString("MM/dd/yyyy")</td>
-                                        <td>
-                                            <ul class="list-group">
-                                                <li class="list-group-item"><strong>Amount:</strong> @r.PaymentInfo.Amount.ToString("$0.00")</li>
-                                                <li class="list-group-item"><strong>Interest:</strong> @r.PaymentInfo.Interest.ToString("$0.00")</li>
-                                                <li class="list-group-item"><strong>Insurance:</strong> @r.PaymentInfo.Insurance.ToString("$0.00")</li>
-                                                <li class="list-group-item"><strong>Total:</strong> @r.PaymentInfo.Total.ToString("$0.00")</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </td>
-
-                    <td>
-                        <input class="btn-danger" type="button" value="Delete" onclick="location.href='@Url.Action("DeleteEquity", "Home", new { id = item.Id })'" />
-                    </td>
-                </tr>
+                <partial name="_TableRowPartial" model="@item" />
             }
         </tbody>
     </table>

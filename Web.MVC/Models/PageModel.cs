@@ -4,6 +4,7 @@ namespace Web.MVC.Models;
 
 public class PageModel
 {
-    public IEnumerable<EquityScheduleDto> Results { get; set; } = [];
+    public EquityDto? SPUpdateResult { get; set; }
+    public IEnumerable<EquityScheduleDto> CreateResults { get; set; } = [];
     public IEnumerable<EquityDto> Equities { get; set; } = [];
 }

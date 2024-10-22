@@ -55,7 +55,7 @@ public class EquityController(IEquityService equityService) : ControllerBase
             return BadRequest("Invalid Selling Price");
 
         var model = _equityService.UpdateSellingPrice(input.Id, input.SellingPrice);
-        return model.Item1 ? Ok(model.Item2) : BadRequest();
+        return model.Item1 ? Ok(model.Item2!.ToDto()) : BadRequest();
     }
 
     [HttpPut]
@@ -66,7 +66,7 @@ public class EquityController(IEquityService equityService) : ControllerBase
             return BadRequest("Invalid No. Of Term");
 
         var result = _equityService.UpdateTerm(input.Id, input.NoOfTerm);
-        return result.Item1 ? Ok(result.Item2) : BadRequest();
+        return result.Item1 ? Ok(result.Item2!.ToDto()) : BadRequest();
     }
 
     [HttpDelete("{id}")]
