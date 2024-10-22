@@ -53,6 +53,16 @@ namespace Web.MVC.Controllers
             return View("Index", model);
         }
 
+        public async Task<IActionResult> UpdateTerm(UpdateNoOfTermDto input)
+        {
+            PageModel model = new();
+            var result = await (_apiService.UpdateTerm(input));
+            var equities = await _apiService.GetEquities();
+            model.TermUpdateResult = result;
+            model.Equities = equities;
+            return View("Index", model);
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -63,7 +63,35 @@
     </div>
 </div>
 
+<div class="container custom-container">
+    <div class="form-container">
+        <form method="PUT" action="/home/updateTerm">
+            <h4>Update No. of Term</h4>
+            <div class="input-container">
+                <input class="input" name="id" placeholder="" />
+                <label class="label">Id</label>
+            </div>
+
+            <div class="input-container">
+                <input class="input" name="noOfTerm" placeholder="" />
+                <label class="label">No. of Term</label>
+            </div>
+
+            <input class="btn-submit" type="submit" />
+        </form>
+    </div>
+
+    <div class="result-container">
+        <h4>Result</h4>
+        @if(Model.TermUpdateResult is not null)
+        {
+            <partial name="_UpdateResultPartial" model="@Model.TermUpdateResult" />
+        }
+    </div>
+</div>
+
 <div class="container">
+    <h4>List of Equities</h4>
     <table class="table">
         <thead>
             <tr>

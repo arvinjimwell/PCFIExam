@@ -1,10 +1,10 @@
 ﻿@model DtoModels.EquityDto
 
 <div class="container">
-    <p scope="row">@Model.Id</>
-    <p>@Model.SellingPrice.ToString("$0.00")</p>
-    <p>@Model.ReservationDate.ToString("MM/dd/yyyy")</p>
-    <p>@Model.Term</p>
+    <p scope="row"><strong>ID:</strong>@Model.Id</>
+    <p><strong>Selling Price:</strong>@Model.SellingPrice.ToString("$0.00")</p>
+    <p><strong>Reservation Date:</strong>@Model.ReservationDate.ToString("MM/dd/yyyy")</p>
+    <p><strong>No. of Term:</strong>@Model.Term</p>
     <div class="table-cell">
         <table class="table">
             <thead class="thead">
